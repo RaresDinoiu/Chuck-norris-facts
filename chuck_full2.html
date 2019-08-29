@@ -1,0 +1,59 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=yes">
+	<title>Chuck Norris random facts</title>
+	<style type="text/css">
+	#data {
+		width: 600px;
+		border: 1px dashed black;
+		font-size: 20px;
+		text-align: center;
+		margin: 0 auto;
+		margin-top: 50px;
+		padding: 20px;
+	}
+	#logo {
+		width: 320px;
+		height: 320px;
+		margin: 0 auto;
+		margin-top: 50px;
+		display: block;
+	}
+	
+	</style>
+</head>
+<body>
+	<img id="logo" src="chucknorris.png" />
+	<div id="data" />
+	<script type="text/javascript">
+	function randomFact() {
+		//we call the web service via AJAX
+		var xmlhttp = new XMLHttpRequest();
+		var url = "https://api.chucknorris.io/jokes/random";
+		xmlhttp.onreadystatechange = function () {
+		if(this.readyState == 4 && this.status == 200) {
+		var json = JSON.parse(this.responseText);
+		// we parse the JSON response
+		parseJson(json);
+	}
+};
+
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+}
+function parseJson(json) {
+	// Json returned is simple. we have just to display the value property of the JSON Object returned
+	var fact = "<b>" + json["value"] + "</b>";
+	document.getElementById("data").innerHTML = fact;
+}
+document.getElementById("logo").addEventListener("click", function() {
+	randomFact();
+});
+randomFact();
+</script>
+ <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
